@@ -1,4 +1,3 @@
-import java.util.Date;
 
 public class Employee {
 	
@@ -7,8 +6,8 @@ public class Employee {
 	private String employeeId;
 	private String socialSecurityNumber;
 	//ok to use a String type for hireDate
-	private Date hireDate;
-	private Date termDate;
+	private String hireDate;
+	private String termDate;
 	private Double vacationBalance;
 	private Double sickBalance;
 	private Double vacationTaken;
@@ -20,16 +19,21 @@ public class Employee {
 	//I have referenced a class I created in a class I created MUAHH!!!
 	private Projects [] project;
 	
-	
 	public Projects[] getProject() {
 		return project;
+	}
+	
+	private Certifications [] certification;
+	
+	public Certifications [] getCertifications() {
+		return certification;
 	}
 
 	public void setProject(Projects[] project) {
 		this.project = project;
 	}
 
-	public void terminateEmployee(Date termDate)
+	public void terminateEmployee(String termDate)
 	{
 		this.termDate = termDate;
 		this.employeeStatus = "Terminated";
@@ -69,16 +73,16 @@ public class Employee {
 	public void setSocialSecurityNumber(String socialSecurityNumber) {
 		this.socialSecurityNumber = socialSecurityNumber;
 	}
-	public Date getHireDate() {
+	public String getHireDate() {
 		return hireDate;
 	}
-	public void setHireDate(Date hireDate) {
+	public void setHireDate(String hireDate) {
 		this.hireDate = hireDate;
 	}
-	public Date getTermDate() {
+	public String getTermDate() {
 		return termDate;
 	}
-	public void setTermDate(Date termDate) {
+	public void setTermDate(String termDate) {
 		this.termDate = termDate;
 	}
 	public Double getVacationBalance() {
@@ -124,6 +128,10 @@ public class Employee {
 		this.disciplineCount = disciplineCount;
 	}
 	
+	public void hire(String hireDate) {
+		this.setHireDate(hireDate);
+		System.out.println(this.getFirstName() + " " + this.getLastName() + " has been hired as of " + hireDate);
+	}
 	
 	
 	
