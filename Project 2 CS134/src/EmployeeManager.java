@@ -3,88 +3,81 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeManager {
-	
+
 	private static ArrayList<SalariedEmployee> salArr = new ArrayList<>();
-	
+
 	public static void main(String[] args) {
 
 		Scanner reader = new Scanner(System.in); // Reading from System.in
+		Menu menu = new Menu();
 		System.out.println("Welcome to the Employee Portal! Please enter your Username below.");
 		System.out.println("Username:");
 		String userName = reader.nextLine(); // Scans the next token of the input as an int.;
 		System.out.println("##################################################################");
 		System.out.println("Welcome, " + userName + ".");
-		System.out.println("##################################################################");
-		mainMenu();
-		reader.close();
-		
-	}
-
-	public static void mainMenu() {
-			Scanner reader = new Scanner(System.in);
-			System.out.println("Please make a selection from the following options.");
-			System.out.println("(1) Hire new employees.");
-			int optionSelected = reader.nextInt();
-			if (optionSelected == 1) {
-				hireOneEmployee();
+		menu.mainMenu();
+		int selection = 0;
+		while (selection != 2) {
+			String selectionString = reader.nextLine();
+			if (isInteger(selectionString)) {
+				selection = Integer.parseInt(selectionString);
 			} else {
-				mainMenu();
+				System.out.println("You have entered an invalid option. Please try again.");
 			}
-			reader.close();
-	}
-
-	public static void hireNewEmployee() {
-
-		try {
-			Scanner reader = new Scanner(System.in);
-			System.out.println("##################################################################");
-			System.out.println("How many employees would you like to hire? (Maximum 20)");
-			int enteredNumber = reader.nextInt();
-
-			if (enteredNumber <= 20) {
-				for (int i = 0; i < enteredNumber; i++) {
-					hireOneEmployee();
+			if (selection == 1) {
+				System.out.println("How many employees would you like to hire? (Maximum 5)");
+				selectionString = reader.nextLine();
+				int numberToHire = 0;
+				if (isInteger(selectionString)) {
+					numberToHire = Integer.parseInt(selectionString);
+					if (numberToHire <= 5) {
+						int employeeSelection = 0;
+						while (employeeSelection != 3) {
+							for (int i = 0; i < numberToHire; i++) {
+								menu.employeeOption();
+								selectionString = reader.nextLine();
+								if (isInteger(selectionString)) {
+									employeeSelection = Integer.parseInt(selectionString);
+								} else {
+									System.out.println("You have entered an invalid option. Please try again.");
+								}
+								if(employeeSelection == 1) {
+									System.out.println("You have selected a Salaried Employee.");
+									System.out.println("Please enter employee's first name.");
+									String firstName = reader.nextLine(); 
+									System.out.println("Please enter employee's last name.");
+									String lastName = reader.nextLine();
+									String employeeId = String.format("%05d", salArr.size() + 1);
+									System.out.println("Please enter employee's Social Security Number. (Format xxx-xx-xxxx)");
+									String social = reader.nextLine();
+									salArr.add(new SalariedEmployee(firstName, lastName, employeeId, social));
+									
+								}
+								if(employeeSelection == 3) {
+									break;  
+								}
+							}
+							break;
+						}
+					} else {
+						System.out.println("You have entered an invalid option. Please try again.");
+					}
+				} else {
+					System.out.println("You have entered an invalid option. Please try again.");
 				}
-			} else {
-				System.out.println("You have entered an invalid option.");
-				hireNewEmployee();
 			}
-			reader.close();
+			menu.mainMenu();
 		}
-
-		catch (Exception e) {
-			System.out.println("You have entered an invalid option.");
-			hireNewEmployee();
-		}
-
+		System.out.println(userName + " has logged out.");
 	}
 
-	public static void hireOneEmployee() {
+	public static boolean isInteger(String input) {
 		try {
-			Scanner reader2 = new Scanner(System.in);
-			System.out.println("What type of employee? (1) Hourly (2) Salary");
-			int enteredNumber = reader2.nextInt();
-			if (enteredNumber == 1) {
-				Scanner readerString = new Scanner(System.in);
-				System.out.println("Please enter employee's first name.");
-				String firstName = readerString.nextLine();
-				System.out.println("Please enter employee's last name.");
-				String lastName = readerString.nextLine();
-				System.out.println("Please enter employee's Social Security Number. (Format xxx-xx-xxx)");
-				String socialSecurityNumber = readerString.nextLine();
-				String employeeId = String.format("%05d", salArr.size()+1);
-				salArr.add(new SalariedEmployee(firstName, lastName, employeeId, socialSecurityNumber));
-				readerString.close();
-				
-			}
-			mainMenu();
-			reader2.close();
+			Integer.parseInt(input);
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
-		catch (Exception e) {
-			System.out.println("You have entered an invalid option.");
-			hireOneEmployee();
-		}
-	
 	}
 
 }

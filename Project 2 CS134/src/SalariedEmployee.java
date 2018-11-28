@@ -14,7 +14,9 @@ public class SalariedEmployee extends Employee {
 		super.setLastName(lastName);
 		super.setEmployeeId(employeeId);
 		super.setSocialSecurityNumber(socialSecurityNumber);
-		System.out.println("Salaried Employee Created." + firstName + lastName + employeeId + socialSecurityNumber);
+		System.out.println("Salaried Employee Created.");
+		System.out.println("Name: " + firstName + " " + lastName);
+		System.out.println("Employee ID: " + employeeId);
 	}
 	
 	
