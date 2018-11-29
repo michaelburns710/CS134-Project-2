@@ -6,6 +6,8 @@ public class HourlyEmployee extends Employee {
 	private Double overtimeRate;
 	
 	HourlyEmployee(String firstName, String lastName, String employeeId, String socialSecurityNumber) {
+		super.setDisciplineCount(0);
+		super.setTermDate("");
 		super.setFirstName(firstName);
 		super.setLastName(lastName);
 		super.setEmployeeId(employeeId);

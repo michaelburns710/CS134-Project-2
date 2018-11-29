@@ -5,8 +5,7 @@ public class Projects {
 	private String projectDuration;
 	private String leaderEmployeeId;
 	private String projectDescription;
-
-
+	
 	public String getProjectName() {
 		return projectName;
 	}
@@ -31,6 +30,8 @@ public class Projects {
 	public void setProjectDescription(String projectDescription) {
 		this.projectDescription = projectDescription;
 	}
+
+
 
 
 

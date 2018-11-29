@@ -23,14 +23,19 @@ public class Employee {
 		return project;
 	}
 	
+	public void setProject(Projects[] project) {
+		this.project = project;
+	}
+	
 	private Certifications [] certification;
 	
-	public Certifications [] getCertifications() {
+
+	public Certifications[] getCertification() {
 		return certification;
 	}
 
-	public void setProject(Projects[] project) {
-		this.project = project;
+	public void setCertification(Certifications[] certification) {
+		this.certification = certification;
 	}
 
 	public void terminateEmployee(String termDate)
@@ -133,7 +138,23 @@ public class Employee {
 		System.out.println(this.getFirstName() + " " + this.getLastName() + " has been hired as of " + hireDate);
 	}
 	
+	public boolean isHired() {
+		if (this.hireDate != "" & this.termDate == "") {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
+	public boolean isRaiseEligible() {
+		if (this.isHired() & this.disciplineCount == 0 & this.getProject().length > 1 & this.getCertification().length >= 2) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 
 }

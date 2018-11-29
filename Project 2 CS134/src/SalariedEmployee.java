@@ -8,8 +8,10 @@ public class SalariedEmployee extends Employee {
 	
 	//this is a constructor
 	//this is a child class, so use super. to reference things in the parent class Employee
-	SalariedEmployee(String firstName, String lastName, String employeeId, String socialSecurityNumber)
-	{
+	SalariedEmployee(String firstName, String lastName, String employeeId, String socialSecurityNumber) {
+		this.setBaseSalary(10000.00);
+		super.setDisciplineCount(0);
+		super.setTermDate("");
 		super.setFirstName(firstName);
 		super.setLastName(lastName);
 		super.setEmployeeId(employeeId);
