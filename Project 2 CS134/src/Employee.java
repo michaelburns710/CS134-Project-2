@@ -37,22 +37,6 @@ public class Employee {
 	public void setCertification(Certifications[] certification) {
 		this.certification = certification;
 	}
-
-	public void terminateEmployee(String termDate)
-	{
-		this.termDate = termDate;
-		this.employeeStatus = "Terminated";
-		this.vacationBalance = 0.0;
-		this.sickBalance = 0.0;
-		this.vacationTaken = 0.0;
-		this.sickTaken = 0.0;
-		this.managerName = "";
-	}
-	
-	public void subtractVacation(Double amountTaken)
-	{
-		this.vacationBalance -= amountTaken;
-	}
 	
 	public String getFirstName() {
 		return firstName;
@@ -133,9 +117,59 @@ public class Employee {
 		this.disciplineCount = disciplineCount;
 	}
 	
-	public void hire(String hireDate) {
+	public void hireEmployee(String hireDate) {
 		this.setHireDate(hireDate);
+		this.employeeStatus = "Hired";
+		this.vacationBalance = 20.0;
+		this.sickBalance = 20.0;
+		this.vacationTaken = 0.0;
+		this.sickTaken = 0.0;
+		this.managerName = "";
 		System.out.println(this.getFirstName() + " " + this.getLastName() + " has been hired as of " + hireDate);
+	}
+	
+	public void terminateEmployee(String termDate)
+	{
+		this.termDate = termDate;
+		this.employeeStatus = "Terminated";
+		this.vacationBalance = 0.0;
+		this.sickBalance = 0.0;
+		this.vacationTaken = 0.0;
+		this.sickTaken = 0.0;
+		this.managerName = "";
+	}
+	
+	public void addVacation(Double vacationTime) {
+		this.setVacationBalance(vacationTime + this.getVacationBalance());
+	}
+	
+	public void subtractVacation(Double vacationTime) {
+		this.setVacationBalance(vacationTime - this.getVacationBalance());
+		this.setVacationTaken(vacationTime + this.getVacationTaken());
+	}
+	
+	public void addSick(Double sickTime) {
+		this.setSickBalance(sickTime + this.getSickBalance());
+	}
+	
+	public void subtractSick(Double sickTime) {
+		this.setSickBalance(sickTime + this.getSickBalance());
+		this.setVacationTaken(sickTime + this.getSickTaken());
+	}
+	
+	public void printEmployeeDetails() {
+		System.out.println("First Name: " + this.getFirstName());
+		System.out.println("Last Name: " + this.getLastName());
+		System.out.println("Employee ID: " + this.getEmployeeId());
+		System.out.println("Hire Date: " + this.getHireDate());
+		System.out.println("Termination date: " + this.getTermDate());
+		System.out.println("Sick Time: " + this.getSickBalance());
+		System.out.println("Sick Time Taken: " + this.getSickTaken());
+		System.out.println("Vacation Time: " + this.getVacationBalance());
+		System.out.println("Vacation Time Taken: " + this.getVacationBalance());
+		System.out.println("Employee Status: " + this.getEmployeeStatus());
+		System.out.println("Manager Name: " + this.getManagerName());
+		System.out.println("Discipline Count: " + this.getDisciplineCount());
 	}
 	
 	public boolean isHired() {
@@ -147,14 +181,7 @@ public class Employee {
 		}
 	}
 	
-	public boolean isRaiseEligible() {
-		if (this.isHired() & this.disciplineCount == 0 & this.getProject().length > 1 & this.getCertification().length >= 2) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+
 	
 
 }

@@ -21,6 +21,14 @@ public class SalariedEmployee extends Employee {
 		System.out.println("Employee ID: " + employeeId);
 	}
 	
+	public boolean isRaiseEligible() {
+		if (super.isHired() & super.getDisciplineCount() == 0 & super.getProject().length > 1 & super.getCertification().length >= 2) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 	public Double getBaseSalary() {
 		return baseSalary;

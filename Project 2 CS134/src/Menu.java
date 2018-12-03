@@ -6,7 +6,9 @@ public class Menu {
 		System.out.println("What would you like to do?");
 		System.out.println("(1) Hire New Employees");
 		System.out.println("(2) Check For Raise");
-		System.out.println("(3) Logout");
+		System.out.println("(3) Check For Disciplines");
+		System.out.println("(4) Search Employee Details");
+		System.out.println("(5) Logout");
 		
 	}
 	

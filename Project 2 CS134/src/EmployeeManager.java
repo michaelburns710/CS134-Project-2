@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+//The EmployeeManager allows a company to hire employees and store key details about their status as an employee for the company.
+//Features to add: 
+//Create ability to add projects and certifications. Currently a test of the project and certification classes are run in this sample.
 public class EmployeeManager {
 
 	private static String dateToday;
@@ -19,7 +22,7 @@ public class EmployeeManager {
 		System.out.println("Welcome, " + userName + ".");
 		System.out.println("Please enter today's date. (Format MM/DD/YYYY)");
 		dateToday = reader.nextLine();
-		menu.mainMenu();
+		//Test of project and certification class.
 		Projects [] projects = new Projects[2];
 		projects[0] = new Projects();
 		projects[1] = new Projects();
@@ -33,13 +36,15 @@ public class EmployeeManager {
 		certifications[1].setName("Microsoft Certification");
 		certifications[1].setCompensationFactor(4.50);
 		int selection = 0;
-		while (selection != 3) {
+		while (selection != 5) {
+			menu.mainMenu();
 			String selectionString = reader.nextLine();
 			if (isInteger(selectionString)) {
 				selection = Integer.parseInt(selectionString);
 			} else {
 				System.out.println("You have entered an invalid option. Please try again.");
 			}
+			// This menu option will allow a user to hire a select amount of employees and choose to hire hourly or salaried.
 			if (selection == 1) {
 				System.out.println("How many employees would you like to hire? (Maximum 5)");
 				selectionString = reader.nextLine();
@@ -68,7 +73,7 @@ public class EmployeeManager {
 											"Please enter employee's Social Security Number. (Format xxx-xx-xxxx)");
 									String social = reader.nextLine();
 									salArr.add(new SalariedEmployee(firstName, lastName, employeeId, social));
-									salArr.get(salArr.size() - 1).hire(dateToday);
+									salArr.get(salArr.size() - 1).hireEmployee(dateToday);
 									salArr.get(salArr.size() - 1).setProject(projects);
 									salArr.get(salArr.size() - 1).setCertification(certifications);
 								}
@@ -83,7 +88,7 @@ public class EmployeeManager {
 											"Please enter employee's Social Security Number. (Format xxx-xx-xxxx)");
 									String social = reader.nextLine();
 									hourArr.add(new HourlyEmployee(firstName, lastName, employeeId, social));
-									hourArr.get(hourArr.size() - 1).hire(dateToday);
+									hourArr.get(hourArr.size() - 1).hireEmployee(dateToday);
 									hourArr.get(hourArr.size() - 1).setProject(projects);
 									hourArr.get(hourArr.size() - 1).setCertification(certifications);
 								}
@@ -100,6 +105,7 @@ public class EmployeeManager {
 					System.out.println("You have entered an invalid option. Please try again.");
 				}
 			}
+			// This menu option will pull all employees of a selected type and check to see if they meet criteria for a promotion.
 			if (selection == 2) {
 				int employeeSelection = 0;
 				menu.employeeOption("check for raise.");
@@ -128,7 +134,13 @@ public class EmployeeManager {
 				if (employeeSelection == 2) {
 					if (hourArr.size() != 0) {
 						for (int i = 0; i < hourArr.size(); i++) {
-							System.out.println("Test");
+							if (hourArr.get(i).isRaiseEligible()){
+								System.out.println("Employee: " + hourArr.get(i).getEmployeeId() + " has been given a raise.");
+								hourArr.get(i).setWage(hourArr.get(i).getWage() + 2.50);
+							}
+							else {
+								System.out.println("Employee: " + hourArr.get(i).getEmployeeId() + " is not eligible for a raise.");
+							}
 						}
 					}
 					else {
@@ -136,12 +148,52 @@ public class EmployeeManager {
 					}
 				}
 			}
-			menu.mainMenu();
+			if (selection == 3) {
+				if (salArr.size() != 0 | hourArr.size() != 0) {
+					for(int i = 0; i < salArr.size(); i++) {
+						if(salArr.get(i).getDisciplineCount() >=3 ) {
+							salArr.get(i).terminateEmployee(dateToday);
+						}
+					}
+					for(int i = 0; i < hourArr.size(); i++) {
+						if(hourArr.get(i).getDisciplineCount() >=3 ) {
+							hourArr.get(i).terminateEmployee(dateToday);
+						}
+					}
+				}
+				else {
+					System.out.println("There are no employee's to check. Please Hire Some.");
+				}
+
+			}
+			if (selection == 4) {
+				System.out.println("Please Enter an Employee ID");
+				String employeeId = reader.nextLine();
+				if (isInteger(employeeId)) {
+					int employeeIdNumber = Integer.parseInt(employeeId);
+					for(int i = 0; i < salArr.size(); i++) {
+						if (employeeIdNumber == Integer.parseInt(salArr.get(i).getEmployeeId())) {
+							salArr.get(i).printEmployeeDetails();
+							break;
+						}
+					}
+					for(int i = 0; i < hourArr.size(); i++) {
+						if (employeeIdNumber == Integer.parseInt(hourArr.get(i).getEmployeeId())) {
+							hourArr.get(i).printEmployeeDetails();
+							break;
+						}
+					}
+				}
+				else {
+					System.out.println("You have entered an invalid option.");
+				}
+			}
 		}
 		System.out.println(userName + " has logged out.");
 		reader.close();
 	}
 
+	// This method will check whether a system input is an integer to avoid creating an exception from a user error.
 	public static boolean isInteger(String input) {
 		try {
 			Integer.parseInt(input);

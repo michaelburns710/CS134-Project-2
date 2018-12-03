@@ -12,9 +12,19 @@ public class HourlyEmployee extends Employee {
 		super.setLastName(lastName);
 		super.setEmployeeId(employeeId);
 		super.setSocialSecurityNumber(socialSecurityNumber);
+		this.setWage(7.50);
 		System.out.println("Hourly Employee Created.");
 		System.out.println("Name: " + firstName + " " + lastName);
 		System.out.println("Employee ID: " + employeeId);
+	}
+	
+	public boolean isRaiseEligible() {
+		if (super.isHired() & super.getDisciplineCount() == 0 & super.getProject().length > 1 & super.getCertification().length >= 2) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public Double getWage() {
